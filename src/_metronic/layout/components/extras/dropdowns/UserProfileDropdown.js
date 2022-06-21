@@ -40,7 +40,7 @@ export function UserProfileDropdown() {
               </span>
               <span className="symbol symbol-35 symbol-light-success">
                 <span className="symbol-label font-size-h5 font-weight-bold">
-                  {userInfo?.lname?.toUpperCase() + ". "}
+                  {userInfo?.lname?.toUpperCase().charAt(0)}
                 </span>
               </span>
             </>

@@ -24,7 +24,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const Category = ({ getNewCount, title }) => {
+const SubSubCategory = ({ getNewCount, title }) => {
   const [filteredInterest, setFilteredInterest] = useState({});
   const [isLoaderVisible, setIsLoaderVisible] = useState(false);
   const [show, setShow] = useState(false);
@@ -73,23 +73,23 @@ const Category = ({ getNewCount, title }) => {
   const getAllUpdate = async () => {
     setIsLoaderVisible(true);
     if (!search) {
-      await ApiGet(`category`)
+      await ApiGet(`sub_sub_category`)
         .then((res) => {
-          console.log("category",res?.data?.payload?.findCategory);
+          console.log("category",res?.data?.payload?.findSubSubCategory);
         
           setIsLoaderVisible(false);
-          setFilteredInterest(res?.data?.payload?.findCategory);
+          setFilteredInterest(res?.data?.payload?.findSubSubCategory);
           setCount(res?.data?.data?.length);
         })
         .catch((err) => { });
     } else {
       await ApiGet(
-        `category`
+        `sub_sub_category`
       )
         .then((res) => {
-          console.log("category",res?.data?.payload?.findCategory);
+          console.log("category",res?.data?.payload?.findSubSubCategory);
           setIsLoaderVisible(false);
-          setFilteredInterest(res?.data?.payload?.findCategory);
+          setFilteredInterest(res?.data?.payload?.findSubSubCategory);
           setCount(res?.data?.data?.length);
         })
         .catch((err) => { });
@@ -168,7 +168,7 @@ const Category = ({ getNewCount, title }) => {
   };
 
   const handleDeleteAnnouncement = () => {
-    ApiDelete(`category/delete?id=${idForDeleteInterest}`)
+    ApiDelete(`category/delete/${idForDeleteInterest}`)
       .then((res) => {
         if (res?.status == 200) {
           setShow(false);
@@ -284,7 +284,7 @@ const Category = ({ getNewCount, title }) => {
                   setIdForUpdateInterest(row?._id);
                 }}
               >
-                <Tooltip title="Edit Category" arrow>
+                <Tooltip title="Edit Interest" arrow>
                   <CreateIcon />
                 </Tooltip>
               </div>
@@ -393,7 +393,7 @@ const Category = ({ getNewCount, title }) => {
         <div className="p-2 mb-2">
           <div className="row mb-4 pr-3">
             <div className="col d-flex justify-content-between">
-              <h2 className="pl-3 pt-2">Category </h2>
+              <h2 className="pl-3 pt-2">Product Category </h2>
             </div>
             {/* <div className="col">
               <div>
@@ -414,7 +414,7 @@ const Category = ({ getNewCount, title }) => {
                 }}
                 className="btn btn-success mr-2"
               >
-                Add Category
+                Add Product Category
               </button>
             </div>
           </div>
@@ -670,4 +670,4 @@ const Category = ({ getNewCount, title }) => {
   );
 };
 
-export default Category;
+export default SubSubCategory;

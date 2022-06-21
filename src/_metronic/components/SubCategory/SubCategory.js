@@ -24,7 +24,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const Category = ({ getNewCount, title }) => {
+const SubCategory = ({ getNewCount, title }) => {
   const [filteredInterest, setFilteredInterest] = useState({});
   const [isLoaderVisible, setIsLoaderVisible] = useState(false);
   const [show, setShow] = useState(false);
@@ -39,6 +39,8 @@ const Category = ({ getNewCount, title }) => {
   const [countPerPage, setCountPerPage] = useState(10);
   const [search, setSearch] = useState("");
   const [isEditApi, setIsEditApi] = useState(false);
+  const [categoryList, setCategoryList] = useState([]);
+  const [category_id, setCategory_id] = useState("");
 
 
 
@@ -73,23 +75,23 @@ const Category = ({ getNewCount, title }) => {
   const getAllUpdate = async () => {
     setIsLoaderVisible(true);
     if (!search) {
-      await ApiGet(`category`)
+      await ApiGet(`sub_category`)
         .then((res) => {
-          console.log("category",res?.data?.payload?.findCategory);
+          console.log("category",res?.data?.payload?.findSubCategory);
         
           setIsLoaderVisible(false);
-          setFilteredInterest(res?.data?.payload?.findCategory);
+          setFilteredInterest(res?.data?.payload?.findSubCategory);
           setCount(res?.data?.data?.length);
         })
         .catch((err) => { });
     } else {
       await ApiGet(
-        `category`
+        `sub_category`
       )
         .then((res) => {
-          console.log("category",res?.data?.payload?.findCategory);
+          console.log("category",res?.data?.payload?.findSubCategory);
           setIsLoaderVisible(false);
-          setFilteredInterest(res?.data?.payload?.findCategory);
+          setFilteredInterest(res?.data?.payload?.findSubCategory);
           setCount(res?.data?.data?.length);
         })
         .catch((err) => { });
@@ -108,6 +110,10 @@ const Category = ({ getNewCount, title }) => {
       formIsValid = false;
       errorsForAdd["description"] = "*Please enter description!";
     }
+    if (!category_id) {
+      formIsValid = false;
+      errorsForAdd["category_id"] = "*Please select category!";
+    }
 
     // if (inputValueForAdd && !inputValueForAdd.image) {
     //   formIsValid = false;
@@ -124,14 +130,15 @@ const Category = ({ getNewCount, title }) => {
       setLoading(true);
       const data = {
         name :inputValueForAdd?.name,
-        description :inputValueForAdd?.description
+        description :inputValueForAdd?.description,
+        cid : category_id
       }
       // let formData = new FormData();
       // formData.append("name", inputValueForAdd?.name);
       // formData.append("description", inputValueForAdd?.description);
       // formData.append("image", inputValueForAdd?.image);
 
-      ApiPost(`category/create`, data)
+      ApiPost(`sub_category/create`, data)
         .then((res) => {
           if (res?.status == 200) {
             setIsAddInterest(false);
@@ -167,8 +174,28 @@ const Category = ({ getNewCount, title }) => {
     return formIsValid;
   };
 
+  useEffect(async () => {
+    ApiGet("category")
+      .then((res) => {
+        // console.log("object",res);
+        console.log(
+          "cats",
+          res?.data?.payload?.findCategory?.map((data) => {
+            return { value: data?._id, label: data?.name };
+          })
+        );
+        setCategoryList(
+          res?.data?.payload?.findCategory?.map((data) => {
+            return { value: data?._id, label: data?.name };
+          })
+        );
+      })
+      .catch((error) => console.log(error));
+  }, []);
+
+
   const handleDeleteAnnouncement = () => {
-    ApiDelete(`category/delete?id=${idForDeleteInterest}`)
+    ApiDelete(`sub_category/delete?id=${idForDeleteInterest}`)
       .then((res) => {
         if (res?.status == 200) {
           setShow(false);
@@ -194,7 +221,8 @@ const Category = ({ getNewCount, title }) => {
       setLoading(true);
       const data = {
         name:inputValueForAdd?.name,
-        description:inputValueForAdd?.description
+        description:inputValueForAdd?.description,
+        cid :category_id
       }
       // let formData = new FormData();
       // formData.append("name", inputValueForAdd?.name);
@@ -203,7 +231,7 @@ const Category = ({ getNewCount, title }) => {
       //   inputValueForAdd?.imageForUpdate &&
       //     formData.append("image", inputValueForAdd?.imageForUpdate);
       // }
-      ApiPut(`category/update?id=${idForUpdateInterest}`, data)
+      ApiPut(`sub_category/update?id=${idForUpdateInterest}`, data)
         .then((res) => {
           if (res?.status == 200) {
             setInputValueForAdd({});
@@ -284,7 +312,7 @@ const Category = ({ getNewCount, title }) => {
                   setIdForUpdateInterest(row?._id);
                 }}
               >
-                <Tooltip title="Edit Category" arrow>
+                <Tooltip title="Edit Interest" arrow>
                   <CreateIcon />
                 </Tooltip>
               </div>
@@ -393,7 +421,7 @@ const Category = ({ getNewCount, title }) => {
         <div className="p-2 mb-2">
           <div className="row mb-4 pr-3">
             <div className="col d-flex justify-content-between">
-              <h2 className="pl-3 pt-2">Category </h2>
+              <h2 className="pl-3 pt-2">Sub - Category </h2>
             </div>
             {/* <div className="col">
               <div>
@@ -414,7 +442,7 @@ const Category = ({ getNewCount, title }) => {
                 }}
                 className="btn btn-success mr-2"
               >
-                Add Category
+                Add Sub-Category
               </button>
             </div>
           </div>
@@ -547,6 +575,47 @@ const Category = ({ getNewCount, title }) => {
                     </span>
                   </div>
                 </div>
+                <div className="form-group row">
+                    <label
+                      className="col-xl-3 col-lg-3 col-form-label"
+                      for="category_id"
+                    >
+                      Choose Category
+                    </label>
+                    <div className="col-lg-9 col-xl-6">
+                      <select
+                        className={`form-control form-control-lg form-control-solid `}
+                        name="category_id"
+                        id="category_id"
+                        value={category_id}
+              onChange={(e) => {
+                setCategory_id(e.target.value);
+                setErrorsForAdd({ ...errorsForAdd, category_id: "" });
+              }}
+                      >
+                        <option value="" disabled selected hidden>Select</option>
+                        {categoryList?.length > 0 &&
+                categoryList?.map((item, index) => {
+                  // console.log("qqq", item);
+                  return (
+                    <option key={index} value={item?.value}>
+                      {item?.label}
+                    </option>
+                  );
+                })}
+                      </select>
+                      <span
+                        style={{
+                          color: "red",
+                          top: "5px",
+                          fontSize: "12px",
+                        }}
+                      >
+                        {errorsForAdd["category"]}
+                      </span>
+                    </div>
+                  </div>
+
 
                 {/* {isEditApi ? (
                   <div className="form-group row">
@@ -670,4 +739,4 @@ const Category = ({ getNewCount, title }) => {
   );
 };
 
-export default Category;
+export default SubCategory;

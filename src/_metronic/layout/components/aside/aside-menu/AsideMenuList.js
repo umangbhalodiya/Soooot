@@ -41,6 +41,28 @@ export function AsideMenuList({ layoutProps }) {
               <span className="menu-text">Category</span>
             </NavLink>
           </li>
+          <li
+            className={`menu-item ${getMenuItemActive("/subcategory", false)}`}
+            aria-haspopup="true"
+          >
+            <NavLink className="menu-link" to="/subcategory">
+              <span className="svg-icon menu-icon">
+                <img alt="" src="media/allIconsForTable/feedback.svg" />
+              </span>
+              <span className="menu-text">Sub Category</span>
+            </NavLink>
+          </li>
+          <li
+            className={`menu-item ${getMenuItemActive("/subsubcategory", false)}`}
+            aria-haspopup="true"
+          >
+            <NavLink className="menu-link" to="/subsubcategory">
+              <span className="svg-icon menu-icon">
+                <img alt="" src="media/allIconsForTable/feedback.svg" />
+              </span>
+              <span className="menu-text">Product Category</span>
+            </NavLink>
+          </li>
 
           <li
             className={`menu-item ${getMenuItemActive("/newsletter", false)}`}
