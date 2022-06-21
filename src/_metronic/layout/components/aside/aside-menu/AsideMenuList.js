@@ -1,8 +1,10 @@
 /* eslint-disable no-script-url,jsx-a11y/anchor-is-valid */
 import React from "react";
 import { useLocation } from "react-router";
+import SVG from "react-inlinesvg";
+
 import { NavLink } from "react-router-dom";
-import { checkIsActive } from "../../../../_helpers";
+import { toAbsoluteUrl, checkIsActive } from "../../../../_helpers";
 import { getUserInfo } from "../../../../../utils/user.util";
 export function AsideMenuList({ layoutProps }) {
   const location = useLocation();
@@ -25,18 +27,23 @@ export function AsideMenuList({ layoutProps }) {
           >
             <NavLink className="menu-link" to="/dashboard">
               <span className="svg-icon menu-icon">
-                <img alt="" src="media/allIconsForTable/user.svg" />
+                <SVG
+                  src={toAbsoluteUrl("/media/svg/icons/Design/Layers.svg")}
+                />
               </span>
               <span className="menu-text">Dashboard</span>
             </NavLink>
           </li>
+
           <li
             className={`menu-item ${getMenuItemActive("/category", false)}`}
             aria-haspopup="true"
           >
             <NavLink className="menu-link" to="/category">
               <span className="svg-icon menu-icon">
-                <img alt="" src="media/allIconsForTable/add.svg" />
+                <SVG
+                  src={toAbsoluteUrl("/media/svg/icons/Design/Layers.svg")}
+                />
               </span>
               <span className="menu-text">Category</span>
             </NavLink>
@@ -70,7 +77,9 @@ export function AsideMenuList({ layoutProps }) {
           >
             <NavLink className="menu-link" to="/newsletter">
               <span className="svg-icon menu-icon">
-                <img alt="" src="media/allIconsForTable/feedback.svg" />
+                <SVG
+                  src={toAbsoluteUrl("/media/svg/icons/Design/Layers.svg")}
+                />
               </span>
               <span className="menu-text">New Page</span>
             </NavLink>

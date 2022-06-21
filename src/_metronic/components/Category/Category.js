@@ -40,8 +40,6 @@ const Category = ({ getNewCount, title }) => {
   const [search, setSearch] = useState("");
   const [isEditApi, setIsEditApi] = useState(false);
 
-
-
   const handleOnChnageAdd = (e) => {
     const { name, value } = e.target;
     setInputValueForAdd({ ...inputValueForAdd, [name]: value });
@@ -75,24 +73,22 @@ const Category = ({ getNewCount, title }) => {
     if (!search) {
       await ApiGet(`category`)
         .then((res) => {
-          console.log("category",res?.data?.payload?.findCategory);
-        
+          console.log("category", res?.data?.payload?.findCategory);
+
           setIsLoaderVisible(false);
           setFilteredInterest(res?.data?.payload?.findCategory);
           setCount(res?.data?.data?.length);
         })
-        .catch((err) => { });
+        .catch((err) => {});
     } else {
-      await ApiGet(
-        `category`
-      )
+      await ApiGet(`category`)
         .then((res) => {
-          console.log("category",res?.data?.payload?.findCategory);
+          console.log("category", res?.data?.payload?.findCategory);
           setIsLoaderVisible(false);
           setFilteredInterest(res?.data?.payload?.findCategory);
           setCount(res?.data?.data?.length);
         })
-        .catch((err) => { });
+        .catch((err) => {});
     }
   };
 
@@ -139,15 +135,15 @@ const Category = ({ getNewCount, title }) => {
             setInputValueForAdd({});
             getAllUpdate();
             // { document.title === "T | Dashboard" && getNewCount() }
-            setLoading(false)
+            setLoading(false);
           } else {
             toast.error(res?.data?.message);
-            setLoading(false)
+            setLoading(false);
           }
         })
         .catch((err) => {
           toast.error(err?.response?.data?.message);
-          setLoading(false)
+          setLoading(false);
         });
     }
   };
@@ -211,15 +207,15 @@ const Category = ({ getNewCount, title }) => {
             setIsEditApi(false);
             toast.success(res?.data?.message);
             getAllUpdate();
-            setLoading(false)
+            setLoading(false);
           } else {
             toast.error(res?.data?.message);
-            setLoading(false)
+            setLoading(false);
           }
         })
         .catch((err) => {
           toast.error(err?.response?.data?.message);
-          setLoading(false)
+          setLoading(false);
         });
     }
   };
@@ -227,26 +223,11 @@ const Category = ({ getNewCount, title }) => {
   let i = 0;
   const columns = [
     {
-      name: "SNo",
+      name: " ",
       cell: (row, index) => (page - 1) * countPerPage + (index + 1),
       width: "65px",
     },
-
-    // {
-    //   name: "Image",
-    //   selector: "image",
-    //   cell: (row) => {
-    //     return (
-    //       <>
-    //         <div className="p-3">
-    //           <img className="max-w-50px zoom" alt="img" src={row?.image} />
-    //         </div>
-    //       </>
-    //     );
-    //   },
-    //   wrap: true,
-    //   sortable:true
-    // },
+ 
     {
       name: "Name",
       cell: (row) => {
@@ -263,7 +244,6 @@ const Category = ({ getNewCount, title }) => {
       selector: "description",
       sortable: true,
     },
-
 
     {
       name: "Actions",
@@ -316,7 +296,7 @@ const Category = ({ getNewCount, title }) => {
       style: {
         borderTopStyle: "solid",
         borderTopWidth: "1px",
-        borderTopColor: defaultThemes.default.divider.default,
+        borderTopColor: "transparent",
       },
     },
     headCells: {
@@ -324,7 +304,7 @@ const Category = ({ getNewCount, title }) => {
         "&:not(:last-of-type)": {
           borderRightStyle: "solid",
           borderRightWidth: "1px",
-          borderRightColor: defaultThemes.default.divider.default,
+          borderRightColor: "transparent",
         },
       },
     },
@@ -333,7 +313,7 @@ const Category = ({ getNewCount, title }) => {
         "&:not(:last-of-type)": {
           borderRightStyle: "solid",
           borderRightWidth: "1px",
-          borderRightColor: defaultThemes.default.divider.default,
+          borderRightColor: "transparent",
         },
       },
     },
@@ -384,7 +364,7 @@ const Category = ({ getNewCount, title }) => {
       getAllUpdate();
     }
   }, [debouncedSearchTerm]);
- 
+
   return (
     <>
       <ToastContainer />
@@ -633,16 +613,14 @@ const Category = ({ getNewCount, title }) => {
                 )} */}
 
                 <div className="d-flex align-items-center justify-content-center">
-                  {loading ?
-                    <button
-                      className="btn btn-success mr-2"
-                    >
+                  {loading ? (
+                    <button className="btn btn-success mr-2">
                       <span>{isEditApi ? "Edit" : "Add"} Details</span>
                       {loading && (
                         <span className="mx-3 spinner spinner-white"></span>
                       )}
                     </button>
-                    :
+                  ) : (
                     <button
                       onClick={(e) => {
                         {
@@ -658,8 +636,7 @@ const Category = ({ getNewCount, title }) => {
                         <span className="mx-3 spinner spinner-white"></span>
                       )}
                     </button>
-                  }
-
+                  )}
                 </div>
               </div>
             ) : null}
