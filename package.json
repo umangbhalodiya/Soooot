@@ -1,0 +1,88 @@
+{
+    "name": "Block Creator",
+    "version": "1.0.2",
+    "private": true,
+    "homepage": "/",
+    "scripts": {
+        "start": "react-scripts start",
+        "build": "react-scripts build",
+        "test": "react-scripts test",
+        "eject": "react-scripts eject",
+        "lint": "eslint src",
+        "format": "prettier --write \"src/**/*.{js,css,scss,html}\"",
+        "rtl": "webpack"
+    },
+    "eslintConfig": {
+        "extends": "react-app"
+    },
+    "browserslist": {
+        "production": [
+            ">0.2%",
+            "not dead",
+            "not op_mini all",
+            "ie 11"
+        ],
+        "development": [
+            "last 1 chrome version",
+            "last 1 firefox version",
+            "last 1 safari version",
+            "last 1 edge version",
+            "IE 11"
+        ]
+    },
+    "dependencies": {
+        "@emotion/is-prop-valid": "^1.1.2",
+        "@fortawesome/fontawesome-free": "5.13.0",
+        "@material-ui/core": "4.9.14",
+        "@material-ui/icons": "4.9.1",
+        "@material-ui/lab": "4.0.0-alpha.53",
+        "@material-ui/pickers": "^3.3.10",
+        "@material-ui/styles": "4.9.14",
+        "@tanem/svg-injector": "8.0.50",
+        "apexcharts": "^3.27.3",
+        "axios": "^0.21.1",
+        "bootstrap": "4.5.0",
+        "clipboard-copy": "3.1.0",
+        "clsx": "1.1.0",
+        "dotenv": "^14.3.0",
+        "formik": "2.1.4",
+        "lodash": "^4.17.21",
+        "moment": "^2.29.1",
+        "object-path": "^0.11.5",
+        "perfect-scrollbar": "1.5.0",
+        "prop-types": "15.7.2",
+        "react": "16.12.0",
+        "react-bootstrap": "1.0.1",
+        "react-bootstrap-table2-paginator": "2.1.2",
+        "react-countup": "^4.3.3",
+        "react-data-table-component": "^7.4.7",
+        "react-datepicker": "^2.16.0",
+        "react-dom": "16.12.0",
+        "react-inlinesvg": "1.2.0",
+        "react-intl": "3.6.2",
+        "react-is": "16.13.1",
+        "react-perfect-scrollbar": "1.5.8",
+        "react-portal": "4.2.0",
+        "react-render-html": "^0.6.0",
+        "react-router-dom": "5.1.2",
+        "react-scripts": "3.2.0",
+        "react-slick": "^0.29.0",
+        "react-swipeable-views": "0.13.9",
+        "react-syntax-highlighter": "12.2.1",
+        "react-toastify": "^8.0.2",
+        "redux": "4.0.5",
+        "socicon": "3.0.5",
+        "sweetalert2": "^10.16.9",
+        "swiper": "^8.2.2",
+        "yup": "0.29.0"
+    },
+    "devDependencies": {
+        "copyfiles": "2.1.1",
+        "sass": "^1.32.5",
+        "sass-lint": "^1.7.0",
+        "serve": "11.2.0",
+        "webpack-cli": "3.3.11",
+        "webpack-messages": "2.0.4",
+        "webpack-rtl-plugin": "2.0.0"
+    }
+}
