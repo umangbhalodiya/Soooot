@@ -66,6 +66,7 @@ const Category = ({ getNewCount, title }) => {
   };
 
   useEffect(() => {
+    console.log("log");
     getAllUpdate();
   }, [page, countPerPage]);
 
