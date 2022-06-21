@@ -4,9 +4,9 @@ import React from "react";
 import Dropdown from "react-bootstrap/Dropdown";
 import { DropdownTopbarItemToggler } from "../../../../_partials/dropdowns";
 import Auth from "../../../../../helpers/Auth";
-import { getUserInfo } from "../../../../../utils/user.util"; 
+import { getUserInfo } from "../../../../../utils/user.util";
 export function UserProfileDropdown() {
-  let userInfo = getUserInfo(); 
+  let userInfo = getUserInfo();
   console.log();
   const Logout = async () => {
     await Auth.deauthenticateLocalUser();
@@ -40,7 +40,7 @@ export function UserProfileDropdown() {
               </span>
               <span className="symbol symbol-35 symbol-light-success">
                 <span className="symbol-label font-size-h5 font-weight-bold">
-                  {userInfo?.lname?.toUpperCase() + ". "}
+                  {userInfo?.lname?.toUpperCase()[0] + ". "}
                 </span>
               </span>
             </>
