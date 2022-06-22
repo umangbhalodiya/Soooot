@@ -17,6 +17,9 @@ import CloseIcon from "@material-ui/icons/Close";
 import Slide from "@material-ui/core/Slide";
 import { Button } from "react-bootstrap";
 import { Modal } from "react-bootstrap";
+import Disapprove from "../../layout/components/Logos/cross.png";
+import Approve from "../../layout/components/Logos/checked1.png";
+
 // import Loader from "react-loader-spinner";
 import { ToastContainer, toast } from "react-toastify";
 import moment from "moment";
@@ -39,7 +42,11 @@ const Category = ({ getNewCount, title }) => {
   const [countPerPage, setCountPerPage] = useState(10);
   const [search, setSearch] = useState("");
   const [isEditApi, setIsEditApi] = useState(false);
+  const [sId, setServiceId] = useState();
+  const [approve, setApprove] = useState(false);
+  const [decline, setDecline] = useState(false);
 
+  
   const handleOnChnageAdd = (e) => {
     const { name, value } = e.target;
     setInputValueForAdd({ ...inputValueForAdd, [name]: value });
@@ -61,6 +68,8 @@ const Category = ({ getNewCount, title }) => {
 
   const handleClose = () => {
     setShow(false);
+    setDecline(false);
+    setApprove(false);
   };
 
   useEffect(() => {
@@ -223,7 +232,7 @@ const Category = ({ getNewCount, title }) => {
   let i = 0;
   const columns = [
     {
-      name: " ",
+      name: "SNo",
       cell: (row, index) => (page - 1) * countPerPage + (index + 1),
       width: "65px",
     },
@@ -244,13 +253,65 @@ const Category = ({ getNewCount, title }) => {
       selector: "description",
       sortable: true,
     },
+    {
+      name: "status",
+      cell: (row) => {
+        return (
+          <>
+          <div className="d-flex justify-content-between">
+            {row?.isActive === true ? (
+              <span className=" badge badge-pill bg-light-success text-success ">
+                Active
+              </span>
+            ) : (
+              <span className="badge badge-pill bg-light-danger text-danger ">
+                DeActive    
+              </span>
+            )}
+            </div>
+          </>
+        );
+      },
+      sortable: true,
+      width: "110px",
+    },
 
     {
       name: "Actions",
       cell: (row) => {
         return (
           <>
-            <div className="d-flex justify-content-between">
+          {row?.isActive === false && (
+              <>
+                <div
+                  className="cursor-pointer pr-1 pt-1"
+                  onClick={() => {
+                    setApprove(true);
+                    setServiceId(row._id);
+                    console.log("object", row._id);
+                  }}
+                >
+                  <Tooltip title="Activate" arrow>
+                    <img alt="" width="27px" src={Approve}></img>
+                  </Tooltip>
+                </div>
+              </>
+            )}
+            {row?.isActive === true && (
+              <div
+                className="cursor-pointer pr-1 pt-1"
+                onClick={() => {
+                  setDecline(true);
+                  setServiceId(row._id);
+                  console.log("object", row._id);
+                }}
+              >
+                <Tooltip title="DeActivate" arrow>
+                  <img alt="" width="27px" src={Disapprove}></img>
+                </Tooltip>
+              </div>
+            )}
+            {/* <div className="d-flex justify-content-between"> */}
               <div
                 className="cursor-pointer pl-2"
                 onClick={() => {
@@ -268,18 +329,8 @@ const Category = ({ getNewCount, title }) => {
                   <CreateIcon />
                 </Tooltip>
               </div>
-            </div>
-            <div
-              className="cursor-pointer"
-              onClick={() => {
-                setShow(true);
-                setIdForDeleteInterest(row?._id);
-              }}
-            >
-              <Tooltip title="Delete Interest" arrow>
-                <DeleteIcon />
-              </Tooltip>
-            </div>
+            {/* </div> */}
+           
           </>
         );
       },
@@ -296,7 +347,7 @@ const Category = ({ getNewCount, title }) => {
       style: {
         borderTopStyle: "solid",
         borderTopWidth: "1px",
-        borderTopColor: "transparent",
+        borderTopColor: defaultThemes.default.divider.default,
       },
     },
     headCells: {
@@ -304,7 +355,7 @@ const Category = ({ getNewCount, title }) => {
         "&:not(:last-of-type)": {
           borderRightStyle: "solid",
           borderRightWidth: "1px",
-          borderRightColor: "transparent",
+          borderRightColor: defaultThemes.default.divider.default,
         },
       },
     },
@@ -313,7 +364,7 @@ const Category = ({ getNewCount, title }) => {
         "&:not(:last-of-type)": {
           borderRightStyle: "solid",
           borderRightWidth: "1px",
-          borderRightColor: "transparent",
+          borderRightColor: defaultThemes.default.divider.default,
         },
       },
     },
@@ -364,6 +415,32 @@ const Category = ({ getNewCount, title }) => {
       getAllUpdate();
     }
   }, [debouncedSearchTerm]);
+
+  const handleDecline = async () => {
+  
+    await ApiDelete(`category/delete?id=${sId}&isActive=false`)
+      .then((res) => {
+        console.log("res.data", res.data);
+        getAllUpdate();
+        toast.success("Category de-activated successfully");
+        handleClose();
+      })
+      .catch((err) => {
+        console.log("err", err);
+      });
+  };
+  const handleApprove = async (e) => {
+    await ApiDelete(`category/delete?id=${sId}&isActive=true`)
+      .then((res) => {
+        console.log("res.data", res.data);
+        getAllUpdate();
+        handleClose();
+        toast.success("Category activated successfully");
+      })
+      .catch((err) => {
+        console.log("err", err);
+      });
+  };
 
   return (
     <>
@@ -643,6 +720,49 @@ const Category = ({ getNewCount, title }) => {
           </List>
         </Dialog>
       ) : null}
+       <Modal show={approve} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title className="text-success">Alarm!</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <h6>Are you sure to want to activate this category ?</h6>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            cancel
+          </Button>
+          <Button
+            variant="success"
+            onClick={(e) => {
+              handleApprove(e);
+            }}
+          >
+            Activate
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
+      <Modal show={decline} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title className="text-danger">Alert!</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <h6>Are you sure to want to deactivate this category ?</h6>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Cancel
+          </Button>
+          <Button
+            variant="danger"
+            onClick={(e) => {
+              handleDecline(e);
+            }}
+          >
+            DeActivate
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </>
   );
 };

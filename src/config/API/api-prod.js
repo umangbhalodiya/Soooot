@@ -1,7 +1,7 @@
 // const protocol = "https";
 // const host = "api.blockcreator.rejoicehub.com/api/v1";
 const protocol = "http";
-const host = "192.168.29.181:5006/api/v1";
+const host = "192.168.29.32:5006/api/v1";
 
 const port = "";
 const trailUrl = "";

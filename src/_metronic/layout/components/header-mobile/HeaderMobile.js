@@ -33,7 +33,7 @@ export function HeaderMobile() {
             >
                 {/*begin::Logo*/}
                 <Link to="/">
-                    <img alt="logo" src={layoutProps.headerLogo} width="70%" />
+                    <img alt="logo" src={layoutProps.headerLogo} width="40%" />
                 </Link>
                 {/*end::Logo*/}
 

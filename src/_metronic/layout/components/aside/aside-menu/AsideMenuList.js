@@ -71,7 +71,7 @@ export function AsideMenuList({ layoutProps }) {
             </NavLink>
           </li>
 
-          <li
+          {/* <li
             className={`menu-item ${getMenuItemActive("/newsletter", false)}`}
             aria-haspopup="true"
           >
@@ -83,7 +83,7 @@ export function AsideMenuList({ layoutProps }) {
               </span>
               <span className="menu-text">New Page</span>
             </NavLink>
-          </li>
+          </li> */}
         </ul>
       )}
     </>

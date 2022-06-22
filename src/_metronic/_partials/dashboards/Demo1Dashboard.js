@@ -10,6 +10,8 @@ import {
 import { ToastContainer } from "react-toastify";
 import { NavLink } from "react-router-dom";
 import Category from "../../components/Category/Category";
+import SubCategory from "../../components/SubCategory/SubCategory";
+import SubSubCategory from "../../components/SubSubCategory/SubSubCategory";
 
 export function Demo1Dashboard() {
   const [tableType, setTableType] = useState("Category");
@@ -19,47 +21,47 @@ export function Demo1Dashboard() {
       <div className=" ">
         <div className="col-lg-12 col-xxl-12 p-0">
           <div className="row">
-            <div class="col-xl-4 col-md-6 mb-4">
-              <div class="card rounded-3 border-5 border-bottom-success shadow h-100 py-2">
+            <div className="col-xl-4 col-md-6 mb-4">
+              <div className="card rounded-3 border-5 border-bottom-success shadow h-100 py-2">
                 <div
-                  class="card-body cursor-pointer"
+                  className="card-body cursor-pointer"
                   onClick={() => {
                     setTableType("Category");
                   }}
                 >
-                  <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                  <div className="row no-gutters align-items-center">
+                    <div className="col mr-2">
+                      <div className="text-xs font-weight-bold text-success text-uppercase mb-1">
                         Categories
                       </div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800">
+                      <div className="h5 mb-0 font-weight-bold text-gray-800">
                         {/* <CountUp
                       end={countdata?.totalUser ? countdata?.totalUser : 0}
                     /> */}
                       </div>
                     </div>
-                    <div class="col-auto">
-                      <i class="fas  fa-users fa-2x text-gray-300"></i>
+                    <div className="col-auto">
+                      <i className="fas  fa-users fa-2x text-gray-300"></i>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
 
-            <div class="col-xl-4 col-md-6 mb-4">
-              <div class="card rounded-3 border-5 border-bottom-warning shadow h-100 py-2">
+            <div className="col-xl-4 col-md-6 mb-4">
+              <div className="card rounded-3 border-5 border-bottom-warning shadow h-100 py-2">
                 <div
-                  class="card-body cursor-pointer"
+                  className="card-body cursor-pointer"
                   onClick={() => {
-                    setTableType("Users");
+                    setTableType("SubCategory");
                   }}
                 >
-                  <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                        Users
+                  <div className="row no-gutters align-items-center">
+                    <div className="col mr-2">
+                      <div className="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                        Sub Category
                       </div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800">
+                      <div className="h5 mb-0 font-weight-bold text-gray-800">
                         {/* <CountUp
                       end={
                         countdata?.totalUserActive
@@ -69,28 +71,28 @@ export function Demo1Dashboard() {
                     /> */}
                       </div>
                     </div>
-                    <div class="col-auto">
-                      <i class="fas fa-user-check fa-2x text-gray-300"></i>
+                    <div className="col-auto">
+                      <i className="fas fa-user-check fa-2x text-gray-300"></i>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
 
-            <div class="col-xl-4 col-md-6 mb-4">
-              <div class="card rounded-3 border-5 border-bottom-primary shadow h-100 py-2">
+            <div className="col-xl-4 col-md-6 mb-4">
+              <div className="card rounded-3 border-5 border-bottom-primary shadow h-100 py-2">
                 <div
-                  class="card-body cursor-pointer"
+                  className="card-body cursor-pointer"
                   onClick={() => {
-                    setTableType("Material");
+                    setTableType("SubSubCategory");
                   }}
                 >
-                  <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                        Materials
+                  <div className="row no-gutters align-items-center">
+                    <div className="col mr-2">
+                      <div className="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                        Product Category
                       </div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800">
+                      <div className="h5 mb-0 font-weight-bold text-gray-800">
                         {/* <CountUp
                       end={
                         countdata?.totalUserInActive
@@ -100,8 +102,8 @@ export function Demo1Dashboard() {
                     /> */}
                       </div>
                     </div>
-                    <div class="col-auto">
-                      <i class="fas fa-user-slash fa-2x text-gray-300"></i>
+                    <div className="col-auto">
+                      <i className="fas fa-user-slash fa-2x text-gray-300"></i>
                     </div>
                   </div>
                 </div>
@@ -111,10 +113,10 @@ export function Demo1Dashboard() {
           <div className="mt-3">
             {tableType === "Category" ? (
               <Category />
-            ) : tableType === "Users" ? (
-              <Category />
-            ) : tableType === "Material" ? (
-              <Category />
+            ) : tableType === "SubCategory" ? (
+              <SubCategory />
+            ) : tableType === "SubSubCategory" ? (
+              <SubSubCategory />
             ) : (
               ""
             )}
